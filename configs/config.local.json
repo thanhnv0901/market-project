@@ -1,0 +1,6 @@
+{
+    "AppName": "Market Service API",
+    "AppVersion": "1.0.0",
+    "APIHost": "127.0.0.1",
+    "APIPort": 3000
+}
