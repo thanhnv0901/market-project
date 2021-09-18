@@ -3,7 +3,7 @@ package configs
 import (
 	"fmt"
 	"log"
-	"market_apis/utils"
+	"market_apis/internals/utils"
 	"os"
 	"path"
 
