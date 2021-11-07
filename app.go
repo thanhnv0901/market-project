@@ -12,6 +12,11 @@ import (
 	"market_apis/routers"
 
 	"github.com/labstack/echo/v4"
+	gomLog "github.com/labstack/gommon/log"
+)
+
+var (
+	configuation = configs.GetConfig()
 )
 
 func main() {
@@ -28,6 +33,16 @@ func main() {
 
 	go func() {
 		e.HideBanner = true
+
+		switch configuation.Enironment {
+		case "local":
+			e.Logger.SetLevel(gomLog.DEBUG)
+		case "staging":
+			e.Logger.SetLevel(gomLog.INFO)
+		case "production":
+			e.Logger.SetLevel(gomLog.ERROR)
+		}
+
 		e.Logger.Fatal(e.Start(fmt.Sprintf("%s:%s", host, port)))
 	}()
 

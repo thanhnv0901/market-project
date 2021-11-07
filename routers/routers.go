@@ -34,6 +34,7 @@ func init() {
 		AllowMethods: []string{echo.GET, echo.HEAD, echo.PUT, echo.PATCH, echo.POST, echo.DELETE},
 	}))
 
-	echoGroup.POST("/upload_product", productionController.UploadProduct)
+	uploadRoute := echoGroup.Group("/upload")
+	uploadRoute.POST("/product", productionController.UploadProduct)
 
 }
