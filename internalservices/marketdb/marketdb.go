@@ -3,13 +3,15 @@ package marketdb
 import (
 	"fmt"
 	"log"
+	"market_apis/configs"
 
 	"gorm.io/driver/postgres"
 	"gorm.io/gorm"
 )
 
 var (
-	marketDB *MarketDB = nil
+	configuation           = configs.GetConfig()
+	marketDB     *MarketDB = nil
 )
 
 // MarketDB ..
@@ -59,7 +61,7 @@ func newMarketConnection(host string, port int, user string, password string, da
 func init() {
 
 	var err error
-	marketDB, err = newMarketConnection("localhost", 5433, "postgres", "postgres", "postgres") // notice
+	marketDB, err = newMarketConnection(configuation.MarketPostgreDBHost, configuation.MarketPostgreDBPort, configuation.MarketPostgreDBUsername, configuation.MarketPostgreDBPassword, configuation.MarketPostgreDatabase)
 	if err != nil {
 		log.Fatalln(err)
 	}

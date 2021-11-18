@@ -1,6 +1,6 @@
 #/bin/bash
 
-export ENV="local"
+export ENV="test"
 
 LOG_FILE="log-"$JOB_ENV"-"`date '+%Y%m%d'`".txt"
 

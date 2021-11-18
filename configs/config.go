@@ -17,6 +17,12 @@ type configuration struct {
 	Enironment string `env:"ENV"`
 	APIHost    string
 	APIPort    string
+
+	MarketPostgreDBHost     string
+	MarketPostgreDBPort     int
+	MarketPostgreDBUsername string
+	MarketPostgreDBPassword string
+	MarketPostgreDatabase   string
 }
 
 var config = configuration{}
@@ -35,10 +41,10 @@ func init() {
 	// Get config file name
 	env := os.Getenv("GO_ENV")
 	switch env {
-	case "production", "staging", "test", "local":
+	case "production", "staging", "test":
 		fileName = fmt.Sprintf(patternFileName, env)
 	default:
-		fileName = fmt.Sprintf(patternFileName, "local")
+		fileName = fmt.Sprintf(patternFileName, "test")
 	}
 
 	configFile := path.Join(pathDir, fileName)

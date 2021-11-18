@@ -3,6 +3,7 @@ module market_apis
 go 1.14
 
 require (
+	github.com/cucumber/godog v0.12.2
 	github.com/ghodss/yaml v1.0.0 // indirect
 	github.com/go-playground/locales v0.14.0
 	github.com/go-playground/universal-translator v0.18.0
