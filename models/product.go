@@ -2,7 +2,6 @@ package models
 
 import (
 	"fmt"
-	"market_apis/internalservices/marketdb"
 	"strings"
 
 	"github.com/go-playground/locales/en"
@@ -13,7 +12,6 @@ import (
 )
 
 var (
-	db               *gorm.DB        = marketdb.GetMarketDB().GetConnection()
 	productValidator ValidateProduct = *NewValidateProduct("us")
 )
 
@@ -67,7 +65,7 @@ func NewValidateProduct(language string) *ValidateProduct {
 // Product ..
 type Product struct {
 	gorm.Model
-	Name      *string  `json:"name" validate:"required,lte=100"`
+	Name      *string  `json:"name" validate:"required,gte=1,lte=100"`
 	Quantity  *int32   `json:"quantity" gorm:"default:0" validate:"required,gte=1"`
 	Unit      *string  `json:"unit" gorm:"default:peace"`
 	Price     *float64 `json:"price" gorm:"default:0.0" validate:"required,gt=0"`
@@ -79,10 +77,4 @@ type Product struct {
 // Validate ..
 func (p *Product) Validate() error {
 	return productValidator.Check(p)
-}
-
-// InsertProduct ..
-func (p *Product) InsertProduct() error {
-	result := db.Create(&p)
-	return result.Error
 }
