@@ -36,6 +36,6 @@ func init() {
 
 	productRoute := echoGroup.Group("/product")
 	productRoute.POST("/upload", productionController.UploadProduct)
-	productRoute.GET("/list", productionController.GetProduct)
+	productRoute.GET("/list/:id", productionController.GetProduct)
 
 }

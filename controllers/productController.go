@@ -46,7 +46,7 @@ func (p *ProductionController) UploadProduct(c echo.Context) error {
 }
 
 type productQueryParameter struct {
-	ID   int    `query:"id"`
+	ID   int    `param:"id"`
 	Name string `query:"name"`
 }
 
