@@ -25,10 +25,12 @@ func (p *ProductHandler) InsertProduct(c echo.Context) (err error) {
 	if err != nil {
 		return fmt.Errorf("Error occure when bind request body to object: %s", err.Error())
 	}
+
 	err = product.Validate()
 	if err != nil {
 		return err
 	}
+
 	tmp := []productmodel.Product{product}
 	err = productdao.InsertProducts(tmp)
 	if err != nil {

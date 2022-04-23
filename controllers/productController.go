@@ -2,6 +2,7 @@ package controllers
 
 import (
 	"market_apis/handlers"
+	"market_apis/internals/utils"
 	"market_apis/models/productmodel"
 	"net/http"
 
@@ -17,7 +18,8 @@ func NewProductionController() *ProductionController {
 	return &ProductionController{}
 }
 
-func responce(c echo.Context, statusCode int, message string, isSuccess bool, data interface{}) error {
+// Responce ..
+func Responce(c echo.Context, statusCode int, message string, isSuccess bool, data interface{}) error {
 	return c.JSON(statusCode, map[string]interface{}{
 		"success": isSuccess,
 		"message": message,
@@ -27,7 +29,7 @@ func responce(c echo.Context, statusCode int, message string, isSuccess bool, da
 
 // UploadProduct ..
 func (p *ProductionController) UploadProduct(c echo.Context) error {
-	// defer utils.ErrorTrackingDefer()
+	defer utils.ErrorTrackingDefer()
 
 	var (
 		productHandler handlers.ProductHandler = *handlers.NewProductHandler()
@@ -37,10 +39,10 @@ func (p *ProductionController) UploadProduct(c echo.Context) error {
 	err = productHandler.InsertProduct(c)
 	if err != nil {
 		c.Logger().Errorf("Cannot insert product: %s\n", err.Error())
-		return responce(c, http.StatusOK, err.Error(), false, nil)
+		return Responce(c, http.StatusOK, err.Error(), false, nil)
 	}
 
-	return responce(c, http.StatusOK, "OK", true, nil)
+	return Responce(c, http.StatusOK, "OK", true, nil)
 }
 
 type productQueryParameter struct {
@@ -62,7 +64,7 @@ func (p *ProductionController) GetProduct(c echo.Context) error {
 	respData, err = productHandler.GetProductsByAtribute(productParameter)
 	if err != nil {
 		c.Logger().Errorf("Cannot get product: %s\n", err.Error())
-		return responce(c, http.StatusBadRequest, err.Error(), false, nil)
+		return Responce(c, http.StatusBadRequest, err.Error(), false, nil)
 	}
-	return responce(c, http.StatusOK, "OK", true, respData) // notice
+	return Responce(c, http.StatusOK, "OK", true, respData) // notice
 }
