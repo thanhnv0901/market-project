@@ -1,14 +1,14 @@
-package models
+package productmodel
 
 import (
 	"fmt"
 	"strings"
+	"time"
 
 	"github.com/go-playground/locales/en"
 	ut "github.com/go-playground/universal-translator"
 	"github.com/go-playground/validator/v10"
 	en_translations "github.com/go-playground/validator/v10/translations/en"
-	"gorm.io/gorm"
 )
 
 var (
@@ -64,7 +64,7 @@ func NewValidateProduct(language string) *ValidateProduct {
 
 // Product ..
 type Product struct {
-	gorm.Model
+	ID        uint     `json:"id" gorm:"primarykey"`
 	Name      *string  `json:"name" validate:"required,gte=1,lte=100"`
 	Quantity  *int32   `json:"quantity" gorm:"default:0" validate:"required,gte=1"`
 	Unit      *string  `json:"unit" gorm:"default:peace"`
@@ -72,6 +72,10 @@ type Product struct {
 	PriceUnit *string  `json:"price_unit" gorm:"default:dollar"`
 	UserID    *int32   `json:"user_id" gorm:"not null"`
 	CompanyID *int32   `json:"company_id" gorm:"default:-1"`
+
+	CreatedAt time.Time `json:"created_at"`
+	UpdatedAt time.Time `json:"updated_at"`
+	DeletedAt time.Time `json:"deleted_at,omitempty" `
 }
 
 // Validate ..

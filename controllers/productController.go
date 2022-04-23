@@ -2,8 +2,7 @@ package controllers
 
 import (
 	"market_apis/handlers"
-	"market_apis/internals/utils"
-	"market_apis/models"
+	"market_apis/models/productmodel"
 	"net/http"
 
 	"github.com/labstack/echo/v4"
@@ -28,7 +27,7 @@ func responce(c echo.Context, statusCode int, message string, isSuccess bool, da
 
 // UploadProduct ..
 func (p *ProductionController) UploadProduct(c echo.Context) error {
-	defer utils.ErrorTrackingDefer()
+	// defer utils.ErrorTrackingDefer()
 
 	var (
 		productHandler handlers.ProductHandler = *handlers.NewProductHandler()
@@ -38,7 +37,7 @@ func (p *ProductionController) UploadProduct(c echo.Context) error {
 	err = productHandler.InsertProduct(c)
 	if err != nil {
 		c.Logger().Errorf("Cannot insert product: %s\n", err.Error())
-		return responce(c, http.StatusBadRequest, err.Error(), false, nil)
+		return responce(c, http.StatusOK, err.Error(), false, nil)
 	}
 
 	return responce(c, http.StatusOK, "OK", true, nil)
@@ -59,7 +58,7 @@ func (p *ProductionController) GetProduct(c echo.Context) error {
 	)
 	c.Bind(&productParameter)
 
-	var respData []models.Product
+	var respData []productmodel.Product
 	respData, err = productHandler.GetProductsByAtribute(productParameter)
 	if err != nil {
 		c.Logger().Errorf("Cannot get product: %s\n", err.Error())

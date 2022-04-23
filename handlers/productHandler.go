@@ -2,15 +2,10 @@ package handlers
 
 import (
 	"fmt"
-	"market_apis/internalservices/marketdb"
-	"market_apis/models"
+	"market_apis/models/productmodel"
+	"market_apis/models/productmodel/productdao"
 
 	"github.com/labstack/echo/v4"
-	"gorm.io/gorm"
-)
-
-var (
-	db *gorm.DB = marketdb.GetMarketDB().GetConnection()
 )
 
 // ProductHandler ..
@@ -25,7 +20,7 @@ func NewProductHandler() *ProductHandler {
 // InsertProduct ..
 func (p *ProductHandler) InsertProduct(c echo.Context) (err error) {
 
-	var product models.Product
+	var product productmodel.Product
 	err = c.Bind(&product)
 	if err != nil {
 		return fmt.Errorf("Error occure when bind request body to object: %s", err.Error())
@@ -34,9 +29,8 @@ func (p *ProductHandler) InsertProduct(c echo.Context) (err error) {
 	if err != nil {
 		return err
 	}
-
-	result := db.Create(&product)
-	err = result.Error
+	tmp := []productmodel.Product{product}
+	err = productdao.InsertProducts(tmp)
 	if err != nil {
 		return fmt.Errorf("Error occure when insert into DB: %s", err.Error())
 	}
@@ -45,12 +39,11 @@ func (p *ProductHandler) InsertProduct(c echo.Context) (err error) {
 }
 
 // GetProductsByAtribute ..
-func (p *ProductHandler) GetProductsByAtribute(parameter interface{}) ([]models.Product, error) {
+func (p *ProductHandler) GetProductsByAtribute(parameter interface{}) (products []productmodel.Product, err error) {
 
-	var products []models.Product
-	err := db.Find(&products, parameter).Error
+	products, err = productdao.FindProducts(parameter)
 	if err != nil {
-		return nil, fmt.Errorf("Error occure when file product: %s", err.Error())
+		return nil, fmt.Errorf("Error occure when product by attribute: %s", err.Error())
 	}
 	return products, nil
 }
