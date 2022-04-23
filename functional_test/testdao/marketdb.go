@@ -1,4 +1,4 @@
-package dao
+package testdao
 
 import (
 	"fmt"

@@ -1,4 +1,4 @@
-package handlers
+package testhandlers
 
 // InterfaceTableHandler ..
 type InterfaceTableHandler interface {

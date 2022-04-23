@@ -1,4 +1,4 @@
-package handlers
+package testhandlers
 
 var (
 	mapTableModel = make(map[string]InterfaceTableHandler)

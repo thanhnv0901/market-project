@@ -1,8 +1,8 @@
-package handlers
+package testhandlers
 
 import (
 	"fmt"
-	"market_apis/functional_test/models"
+	"market_apis/functional_test/testmodels"
 )
 
 // ProductHandler ..
@@ -11,7 +11,7 @@ type ProductHandler struct {
 
 // TruncateTable ..
 func (p *ProductHandler) TruncateTable() error {
-	marketDBConnection.Unscoped().Delete(&models.Product{}, "1=1")
+	marketDBConnection.Unscoped().Delete(&testmodels.Product{}, "1=1")
 	return nil
 }
 
