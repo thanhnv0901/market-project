@@ -1,6 +1,7 @@
 ---
 version: "3"
-services: 
+services:
+
   postgredb-market:
     image: "postgres:9.6.12"
     container_name: "postgredb-market"
@@ -11,3 +12,22 @@ services:
       - "5433:5432"
     volumes:
       - ./postgredb:/docker-entrypoint-initdb.d/
+
+  prometheus:
+    image: prom/prometheus
+    volumes:
+      - ./prometheus:/etc/prometheus
+    command:
+      - '--config.file=/etc/prometheus/prometheus.yml'
+      - '--storage.tsdb.path=/prometheus'
+    ports:
+      - 9090:9090
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+
+  grafana:
+    image: grafana/grafana
+    ports:
+      - 3000:3000
+    depends_on:
+      - prometheus

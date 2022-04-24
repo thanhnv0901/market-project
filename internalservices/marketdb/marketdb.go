@@ -42,7 +42,7 @@ func newMarketConnection(host string, port int, user string, password string, da
 
 	db, err := gorm.Open(postgres.Open(dbinfo), &gorm.Config{
 		PrepareStmt: true,
-		Logger:      logger.Default.LogMode(logger.Info),
+		Logger:      logger.Default.LogMode(logger.Error),
 	})
 	if err != nil {
 		return nil, fmt.Errorf("Error in Open Postgre Connection to Market DB, ")

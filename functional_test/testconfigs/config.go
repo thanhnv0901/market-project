@@ -1,4 +1,4 @@
-package configs
+package testconfigs
 
 import (
 	"fmt"
@@ -16,14 +16,13 @@ type configuration struct {
 	AppVersion string
 	Enironment string `env:"ENV"`
 	APIHost    string
-	APIPort    string
+	APIPort    int32
 
 	MarketPostgreDBHost     string
 	MarketPostgreDBPort     int
 	MarketPostgreDBUsername string
 	MarketPostgreDBPassword string
 	MarketPostgreDatabase   string
-
 }
 
 var config = configuration{}

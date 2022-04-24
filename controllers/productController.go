@@ -18,15 +18,6 @@ func NewProductionController() *ProductionController {
 	return &ProductionController{}
 }
 
-// Responce ..
-func Responce(c echo.Context, statusCode int, message string, isSuccess bool, data interface{}) error {
-	return c.JSON(statusCode, map[string]interface{}{
-		"success": isSuccess,
-		"message": message,
-		"data":    data,
-	})
-}
-
 // UploadProduct ..
 func (p *ProductionController) UploadProduct(c echo.Context) error {
 	defer utils.ErrorTrackingDefer()

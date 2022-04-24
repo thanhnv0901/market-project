@@ -29,7 +29,8 @@ type RequestGlobalModel struct {
 }
 
 func init() {
-	host = "http://localhost:3000/api" // notice
+
+	host = fmt.Sprintf(`http://%s:%d/api`, configuration.APIHost, configuration.APIPort)
 
 	header := make(map[string]string)
 	header["Content-Type"] = "application/json"

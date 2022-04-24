@@ -3,7 +3,7 @@ package testdao
 import (
 	"fmt"
 	"log"
-	"market_apis/functional_test/configs"
+	"market_apis/functional_test/testconfigs"
 
 	"gorm.io/driver/postgres"
 	"gorm.io/gorm"
@@ -11,7 +11,7 @@ import (
 )
 
 var (
-	configuation           = configs.GetConfig()
+	configuation           = testconfigs.GetConfig()
 	marketDB     *MarketDB = nil
 )
 
