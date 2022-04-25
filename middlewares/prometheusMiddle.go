@@ -16,7 +16,7 @@ type MetricsMiddleware struct {
 // NewMetricsMiddleware ..
 func NewMetricsMiddleware() *MetricsMiddleware {
 	opsProcessed := promauto.NewCounterVec(prometheus.CounterOpts{
-		Name: "myapp_processed_ops_total",
+		Name: "myapp_request_total",
 		Help: "The total number of processed events",
 	}, []string{"method", "path", "statuscode"})
 	return &MetricsMiddleware{

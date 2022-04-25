@@ -43,6 +43,7 @@ type productQueryParameter struct {
 
 // GetProduct ..
 func (p *ProductionController) GetProduct(c echo.Context) error {
+	defer utils.ErrorTrackingDefer()
 
 	var (
 		productHandler   handlers.ProductHandler = *handlers.NewProductHandler()
