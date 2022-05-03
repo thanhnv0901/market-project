@@ -1,16 +1,33 @@
 global:
-  scrape_interval:      15s
-  evaluation_interval:  15s
+  scrape_interval: 15s
+  evaluation_interval: 15s
   external_labels:
-    monitor: 'my-project'
+    monitor: "my-project"
+
+rule_files:
+  - "prometheus.rules.yml"
 
 scrape_configs:
   # optional: this makes the metrics available to us about Promethus itself.
-  - job_name: 'prometheus'
+  - job_name: "prometheus"
     static_configs:
-      - targets: ['localhost:9090']
+      - targets: ["localhost:9090"]
 
   # tells Prometheus to scrape metrics an address over port 9123
-  - job_name: 'market-apis'
+  - job_name: "market-apis"
     static_configs:
-      - targets: ['host.docker.internal:3500'] # see statsd-exporter further down
+      - targets: ["host.docker.internal:3500"] # see statsd-exporter further down
+
+  - job_name: "node"
+    # Override the global default and scrape targets from this job every 5 seconds.
+    scrape_interval: 5s
+    static_configs:
+      - targets: ["host.docker.internal:8080"]
+        labels:
+          group: "production"
+
+  - job_name: "grafana"
+    # Override the global default and scrape targets from this job every 5 seconds.
+    scrape_interval: 5s
+    static_configs:
+      - targets: ["grafana:3000"]

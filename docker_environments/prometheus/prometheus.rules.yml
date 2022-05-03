@@ -1,0 +1,17 @@
+groups:
+- name: cpu-node
+  rules:
+  - record: job_instance_mode:percentage_node_cpu_seconds:avg_rate5m
+    expr: 100 - (avg by (instance) (rate(node_cpu_seconds_total{job="node",mode="idle"}[1m])) * 100)
+
+  - record: job_instance_mode:memory_used:Gb
+    expr: (node_memory_total_bytes - node_memory_free_bytes)
+
+  - record: job_instance_mode:disk_space_used
+    expr: 100-((node_filesystem_free_bytes{} / node_filesystem_size_bytes{})*100)
+
+  - record: job_instance_mode:network_received_rate:bytes:1m
+    expr: rate(node_network_receive_bytes_total{device='en0'}[1m])
+
+  - record: job_instance_mode:network_transmitted_rate:bytes:1m
+    expr: rate(node_network_transmit_bytes_total{device='en0'}[1m])
