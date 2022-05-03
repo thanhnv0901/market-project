@@ -25,8 +25,11 @@ For Cron example:
     |- POST /api/upload
     |- GET /api/list/:id
     
-[+] [2022/05/3] [market][][] Improve grafana, prometheus setup and scheme for charts
+[+] [2022/05/03] [market][][] Improve grafana, prometheus setup and scheme for charts
     |- docker_environments/grafana/grafanaSetting.json
     |- README.md
     |- docker_environments/prometheus/prometheus.rules.yml
     
+[+] [2022/05/4] [market][][] update grafana scheme for charts
+    |- docker_environments/grafana/grafanaSetting.json
+   

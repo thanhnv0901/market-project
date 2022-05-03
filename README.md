@@ -38,14 +38,18 @@ hey -n 100000 -c 4 -q 200 -m POST -T "application/json"  -d '{"name":"Ram DDR4 P
 ## Tracking traffic by Grafana
 You can setup charts in grafana on host: _http://localhost:3000_
 
-Using query: `sum(rate(myapp_request_total{}[1m])) by (method,path)` to show number requests per second Graph or imporing grafana schema saved in `./docker_environments/grafana/grafanaSetting.json`
+Using query: `sum(rate(myapp_request_total{}[1m])) by (method,path)` to show number requests per second Graph 
 
-Connect to Prometheus
+Or impore grafana schema saved in `./docker_environments/grafana/grafanaSetting.json`, then download and run node_exporter `./node_exporter --web.listen-address 127.0.0.1:8080` to have overview server
+
+Firstly, Connect to Prometheus
 
 ![alt](resources/setupgrafana.png)
 
-Setup query in grafana and view chart
+Secondly, Setup query in grafana and view chart
 
 ![alt](resources/setupgrafanachart.png)
+
+Finaly, Result
 
 ![alt](resources/grafana_charts.png)
